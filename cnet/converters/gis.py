@@ -48,8 +48,8 @@ class SHPConverter(object):
 
     """
 
-    def __init__(self, filename=None):
-        self.filename = filename
+    def __init__(self, filename=None):    
+        self.filename = filename           
 
     def network(self, filename=None, name='gis', prefix='', zfill=0):
         """Generate a cnet network from tntp file.
