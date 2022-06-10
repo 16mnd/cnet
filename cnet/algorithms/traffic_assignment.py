@@ -218,7 +218,7 @@ def msa(network, od_flow, limit=0.5, max_iter=float('inf'), enable_paths=True):
         # update_volume(volume)
         for e, E in network.edges.items():
             E.volume = volume[e]
-
+#E.volume .... confused with this
         temp_volume = deepcopy(volume)
 
         if enable_paths:
@@ -231,7 +231,8 @@ def msa(network, od_flow, limit=0.5, max_iter=float('inf'), enable_paths=True):
                          for i in range(len(path)-1)]
 
                 if enable_paths:
-                    temp_paths[tuple(path)] = od_flow[o][d]
+                    temp_paths[tuple(path)] = od_flow[o][d]  #I think this is in regards to using multiple paths.. so look into... Where to use djikstra test is now the main question....???
+                    # do we use it here or do we use it in both places where dijkstra are callled  # i think the dijkstra test is supposed to go here
                     od_paths[(o, d)][tuple(path)] = 0
 
                 for e in edges:
