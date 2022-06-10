@@ -174,6 +174,11 @@ def msa_fast(network, od_flow, limit=0.5, max_iter=float('inf'), enable_paths=Tr
 
 def msa(network, od_flow, limit=0.5, max_iter=float('inf'), enable_paths=True):
     # initialze variables
+    # in case you want to parition a network... then we have to create our own netwokr for that specific parition...
+    # for spectral clustering we hvae to do this. Motivaiton: Each cluster gets its own subset of cars... sometimes a request might come in that crosses the
+    #clusters but this is of no concern... we apply idle vehicles for passengers that want to do so. In this case however, based on keeping cars in areas that are 
+    #highly correlated... then the clusters must become their own networks... Logically this checkss out
+    # this also means re doing the od_flow parameter to be only origin and destiantions within the cluster
     origins = list(od_flow)
     destinations = list(set(n for k, v in od_flow.items() for n in v))
     od_paths = defaultdict(dict)
@@ -189,7 +194,12 @@ def msa(network, od_flow, limit=0.5, max_iter=float('inf'), enable_paths=True):
     # initial all-or-nothing assignment
     for o in origins:
         for d in destinations:
-            cost, path = dijkstra(network, o, d)
+            cost, path = dijkstra(network, o, d)   # here, this only considers the shortest path... I dont get it.. the MSA calculation is assuming that every
+            # dirver is taking the shortest path... 
+            #Vision board: optimizing the MSA algorithm.. is this possible... we can use initial msa assignment to then compute porbabilites and then redistribute
+            #MSA basaed on new paths chosen (the new paths are selcted from layer 4 transiton matrix.) <-------------- GOOD IDEA... keep running MSA until Minimas for cost
+            # and free flow time. Stopping criteria is a specific amount of iterations where the cost and or free flow time have not improved (how to choose is dependant on prior experimentaiton)
+            
             edges = [n2e[path[i], path[i+1]][0] for i in range(len(path)-1)]
             for e in edges:
                 potential_volume[e] += od_flow[o][d]
