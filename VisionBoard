@@ -1,0 +1,13 @@
+MultiDimensionality problem: converging to minimums in non convex spaces where the feature set is beyong large is extroardinally hard. Correct? 
+A solution is to pick apart this problem. One feature at a time using clustering. Converging to minimums with each feature one feature at a time with the help
+clustering. Then you keep adding feautures, finding the new minimums one at a time. Until you are able to come up a regression like technique that can map how new features will cause the landscape to change. 
+
+Main Idea: Imagine a cluster of points. Like in laguardias new terminal B. Look at that. Now each point in a higher dimensional space is mapped completely different.
+But lets now give each node in reference to every other node a value for each feature. Perform the clustering in each individual space. Map to see how the points would allign
+Then add features one at a time and recluster. (This is harder search versus spectral (I think)). Instead of having to cluster based on all the features, 
+we can use the calculated edges for every node for every feature. We then take all the clusterings for every feature by itself (this could be like a simple k means clustering (if you understand.)).
+Then we compare each of these space to another, and we try to create kernel or a linear or non linear (if this exists) where we can solve for a n-dimensional cluster.
+If a mapping can not be made. I assume this has been tried. If not, go brute force, take all the different cluster spaces and compare and contrast each node in each one. Then take the nodes that occur the most. (Prooper formula for this will need to be created.)
+These new spaces and an accrued space can tell us alot, more importantly we could tweak specfic features to see how the accrued changes. 
+
+Is this spectral clustering? More research. 
